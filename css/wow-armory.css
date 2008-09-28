@@ -1,0 +1,421 @@
+.tooltip_new {
+	border : 1px solid #cccccc;
+	color : #ffffff;
+	background-color : #000000;
+	z-index : 1000001;
+	line-height : 13px;
+	opacity:0.80;
+	filter:alpha(opacity=80);
+	-khtml-opacity: 0.80;
+	-khtml-border-radius:5px;
+	-moz-opacity: 0.80;
+	-moz-border-radius:5px;
+	-webkit-opacity: 0.80;
+	-webkit-border-radius: 5px;
+	}
+
+.tooltipContentSpecial {
+	color : #ffd800;
+	font-weight : normal;
+	font-size : 11px;
+	display : block;
+	}
+
+.tooltipContentSpecial strong {
+	color : white;
+	}
+
+.tooltipGuild {
+	color : #ffd800;
+	font-weight : normal;
+	font-size : 11px;
+	}
+
+.tooltipTitle {
+	font-size : 13px;
+	}
+
+.tooltip_new div {
+	font : 11px/16px Verdana, "Trebuchet MS", Arial, Helvetica, sans-serif;
+	color : white;
+	margin : 0;
+	padding : 1px 2px;
+	width : 270px;
+	}
+
+.item-content {
+	color : white;
+	}
+
+.myItemName {
+	font-size : 13px;
+	}
+
+.myGold {
+	color : #e5cc80;
+	}
+
+.myOrange {
+	color : #ff8000;
+	}
+
+.myPurple {
+	color : #a335ee;
+	}
+
+.myBlue {
+	color : #0070dd;
+	}
+
+.myGray {
+	color : #c9c9c9;
+	}
+
+.myGreen {
+	color : #00ff00;
+	}
+
+.myYellow {
+	color : #ffd517;
+	}
+
+.myRed {
+	color : #d80000;
+	}
+
+.myWhite {
+	color : #ffffff;
+	}
+
+.myTable {
+	width : 270px;
+	color : #ffffff;
+	font-size : 9pt;
+	position : relative;
+	font-family : Arial, Helvetica, sans-serif;
+	}
+
+.myRight {
+	color : #ffffff;
+	font-size : 9pt;
+	position : absolute;
+	right : 0;
+	}
+
+a.rarity0 {
+	font-size : 10pt;
+	color : #5b5b5b !important ;
+	}
+
+a.rarity0:hover {
+	color : #919191 !important ;
+	}
+
+a.rarity1 {
+	font-size : 10pt;
+	color : #ffffff !important ;
+	}
+
+a.rarity1:hover {
+	color : #ffffff !important ;
+	}
+
+a.rarity2 {
+	font-size : 10pt;
+	color : #007200 !important ;
+	}
+
+a.rarity2:hover {
+	color : #00a900 !important ;
+	}
+
+a.rarity3 {
+	font-size : 10pt;
+	color : #004385 !important ;
+	}
+
+a.rarity3:hover {
+	color : #0062c3 !important ;
+	}
+
+a.rarity4 {
+	font-size : 10pt;
+	color : #5d1f88 !important ;
+	}
+
+a.rarity4:hover {
+	color : #b343ff !important ;
+	}
+
+a.rarity5 {
+	font-size : 10pt;
+	color : #c24e00 !important ;
+	}
+
+a.rarity5:hover {
+	color : #fa9900 !important ;
+	}
+
+a.rarity6 {
+	font-size : 10pt;
+	color : #9c884d !important ;
+	}
+
+a.rarity6:hover {
+	color : #e5cc80 !important ;
+	}
+
+a.rarity6:hover {
+	font-size : 10pt;
+	color : #e5cc80 !important ;
+	}
+
+.ps a:hover {
+	text-decoration : none !important ;
+	}
+
+.ps a.rarity0 {
+	font-size : 12px;
+	color : #5b5b5b !important ;
+	}
+
+.ps a.rarity0:hover {
+	color : #919191 !important ;
+	}
+
+.ps a.rarity1 {
+	font-size : 12px;
+	color : #ffffff !important ;
+	}
+
+.ps a.rarity1:hover {
+	color : #ffffff !important ;
+	}
+
+.ps a.rarity2 {
+	font-size : 12px;
+	color : #007200 !important ;
+	}
+
+.ps a.rarity2:hover {
+	color : #00a900 !important ;
+	}
+
+.ps a.rarity3 {
+	font-size : 12px;
+	color : #004385 !important ;
+	}
+
+.ps a.rarity3:hover {
+	color : #0062c3 !important ;
+	}
+
+.ps a.rarity4 {
+	font-size : 12px;
+	color : #5d1f88 !important ;
+	}
+
+.ps a.rarity4:hover {
+	color : #b343ff !important ;
+	}
+
+.ps a.rarity5 {
+	font-size : 12px;
+	color : #c24e00 !important ;
+	}
+
+.ps a.rarity5:hover {
+	color : #fa9900 !important ;
+	}
+
+.ps a.rarity6 {
+	font-size : 12px;
+	color : #9c884d !important ;
+	}
+
+.ps a.rarity6:hover {
+	color : #e5cc80 !important ;
+	}
+
+.ps a.rarity6:hover {
+	font-size : 12px;
+	color : #e5cc80 !important ;
+	}
+
+.ps tr.data2 a.rarity0 {
+	color : white !important ;
+	}
+
+.ps tr.data2 a.rarity0:hover {
+	color : white !important ;
+	}
+
+.ps tr.data2 a.rarity1 {
+	color : white !important ;
+	}
+
+.ps tr.data2 a.rarity1:hover {
+	color : white !important ;
+	}
+
+.ps tr.data2 a.rarity2 {
+	color : white !important ;
+	}
+
+.ps tr.data2 a.rarity2:hover {
+	color : white !important ;
+	}
+
+.ps tr.data2 a.rarity3 {
+	color : white !important ;
+	}
+
+.ps tr.data2 a.rarity3:hover {
+	color : white !important ;
+	}
+
+.ps tr.data2 a.rarity4 {
+	color : white !important ;
+	}
+
+.ps tr.data2 a.rarity4:hover {
+	color : white !important ;
+	}
+
+.ps tr.data2 a.rarity5 {
+	color : white !important ;
+	}
+
+.ps tr.data2 a.rarity5:hover {
+	color : white !important ;
+	}
+
+.ps tr.data2 a.rarity6 {
+	color : white !important ;
+	}
+
+.ps tr.data2 a.rarity6:hover {
+	color : white !important ;
+	}
+
+.ps tr.data2 a.rarity6:hover {
+	color : white !important ;
+	}
+
+.rarityShadow0 {
+	font-size : 10pt;
+	color : #e6e6e6 !important ;
+	}
+
+.rarityShadow1 {
+	font-size : 10pt;
+	color : #000000 !important ;
+	}
+
+.rarityShadow2 {
+	font-size : 10pt;
+	color : #82f682 !important ;
+	}
+
+.rarityShadow3 {
+	font-size : 10pt;
+	color : #aad5ff !important ;
+	}
+
+.rarityShadow4 {
+	font-size : 10pt;
+	color : #f0d4ff !important ;
+	}
+
+.rarityShadow5 {
+	font-size : 10pt;
+	color : #ffcc00 !important ;
+	}
+
+.rarityShadow6 {
+	font-size : 10pt;
+	color : #e5cc80 !important ;
+	}
+
+.socketImg {
+	width : 14px;
+	height : 14px;
+	vertical-align : -20%;
+	margin : 0 7px 0 0;
+	padding : 0;
+	}
+
+.tooltipRight {
+	position : relative;
+	float : right;
+	clear : right;
+	margin : 0 0 0 4px;
+	}
+
+.bonusGreen {
+	color : #00ff00;
+	}
+
+.setNameYellow {
+	color : #ffd517;
+	font-size : 11px;
+	}
+
+.setItemIndent {
+	display : inline;
+	}
+
+.setItemIndent span {
+	margin-left : 9px;
+	}
+
+.setItemYellow {
+	color : #f8ffa8;
+	}
+
+.setItemGray {
+	color : #787880;
+	}
+
+.myBlueGem {
+	color : #666666;
+	display : block;
+	background : url("../socket-blue.png") no-repeat 3px 4px;
+	padding-left : 19px;
+	}
+
+.myMetaGem {
+	color : #666666;
+	display : block;
+	background : url("../socket-meta.png") no-repeat 3px 4px;
+	padding-left : 19px;
+	}
+
+.myOrangeGem {
+	color : #666666;
+	display : block;
+	background : url("../socket-orange.png") no-repeat 3px 4px;
+	padding-left : 19px;
+	}
+
+.myPurpleGem {
+	color : #666666;
+	display : block;
+	background : url("../socket-purple.png") no-repeat 3px 4px;
+	padding-left : 19px;
+	}
+
+.myRedGem {
+	color : #666666;
+	display : block;
+	background : url("../socket-red.png") no-repeat 3px 4px;
+	padding-left : 19px;
+	}
+
+.myYellowGem {
+	color : #666666;
+	display : block;
+	background : url("../socket-yellow.png") no-repeat 3px 4px;
+	padding-left : 19px;
+	}
+

@@ -1,0 +1,10 @@
+== 1.0 - May x, 2008 ==
+First release! This is still pending a lot of work, but it’s ready for some
+testing.
+
+=== Features Added ===
+* WordPress options page:
+  * enable / disable item link parsing for comments/pages/posts,
+  * enable / disable caching,
+  * tooltips for items,
+  * test if PHP comes with the required modules,
