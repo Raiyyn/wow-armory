@@ -510,7 +510,7 @@ if (!class_exists("WoWArmoryPlugin")) {
 
             $armoryFetch = new WordPressArmoryCache();
             
-            $armoryFetch->setArea($wowarmoryOptions['wowarmory_area;'])
+            $armoryFetch->setArea($wowarmoryOptions['wowarmory_area;']);
 
             $itemRarity = array (
                             0 => "#5b5b5b",
