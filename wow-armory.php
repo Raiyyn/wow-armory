@@ -69,10 +69,10 @@ if (!class_exists("WordPressArmoryCache")) {
         * flat files or a mysql database. The third indicates how
         * long a cached XML query should be kept before updating.
         *
-        * @param string     $armory         URL of the Armory website
-        * @param integer    $updateInterval Time (in seconds) between cache updates
+        * @param string     $armoryArea     URL of the Armory website
+        * @param integer    $retries        Time (in seconds) between cache updates
         */
-        function WordPressArmoryCache($armoryArea = NULL, $updateInterval = NULL) {
+        function WordPressArmoryCache($armoryArea = NULL, $retries = NULL) {
 
             global $wpdb;
                 
@@ -91,7 +91,12 @@ if (!class_exists("WordPressArmoryCache")) {
 
             }
             
-            $this->phpArmory($armory);
+    		if ($armoryArea){
+    			$this->phpArmory($armoryArea);
+    		}
+    		if ($retries){
+    			$this->phpArmory($retries);
+    		}
             
         }
 
