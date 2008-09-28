@@ -29,7 +29,7 @@ load_plugin_textdomain('wow_armory_plugin',PLUGINDIR . '/' . dirname(plugin_base
 /**
  * Include the phpArmory class to retrieve the XML from the Armory
  */
-include_once(dirname(__FILE__) . '/php/phpArmory.class.php');
+include_once(dirname(__FILE__) . '/phparmory/phpArmory.class.php');
 
 
 if (!class_exists("WordPressArmoryCache")) {
@@ -72,7 +72,7 @@ if (!class_exists("WordPressArmoryCache")) {
         * @param string     $armory         URL of the Armory website
         * @param integer    $updateInterval Time (in seconds) between cache updates
         */
-        function WordPressArmoryCache($armory = NULL, $updateInterval = NULL) {
+        function WordPressArmoryCache($armoryArea = NULL, $updateInterval = NULL) {
 
             global $wpdb;
                 
@@ -320,7 +320,7 @@ if (!class_exists("WordPressArmoryCache")) {
 if (!class_exists("WoWArmoryPlugin")) {
     class WoWArmoryPlugin {
 
-		var $adminOptionsName = "WoWArmoryPluginAdminOptions";
+        var $adminOptionsName = "WoWArmoryPluginAdminOptions";
 
         function WoWArmoryPlugin() { //constructor
         }
@@ -351,8 +351,7 @@ if (!class_exists("WoWArmoryPlugin")) {
          */
         function getAdminOptions() {
             $wowarmoryAdminOptions = array(
-                'wowarmory_url'             => 'http://www.wowarmory.com/',
-                'wowarmory_locale'          => 'en',
+                'wowarmory_area'            => 'en',
                 'wowarmory_modify_content'  => 'true',
                 'wowarmory_modify_comment'  => 'true');
 
@@ -390,11 +389,8 @@ if (!class_exists("WoWArmoryPlugin")) {
             $wowarmoryOptions = $this->getAdminOptions();
 
             if (isset($_POST['update_WoWArmoryPluginSettings'])) {
-                if (isset($_POST['wowarmory_url'])) {
-                    $wowarmoryOptions['wowarmory_url'] = $_POST['wowarmory_url'];
-                }
-                if (isset($_POST['wowarmory_locale'])) {
-                    $wowarmoryOptions['wowarmory_locale'] = $_POST['wowarmory_locale'];
+                if (isset($_POST['wowarmory_area'])) {
+                    $wowarmoryOptions['wowarmory_area'] = $_POST['wowarmory_area'];
                 }
                 if (isset($_POST['wowarmory_modify_content'])) {
                     $wowarmoryOptions['wowarmory_modify_content'] = $_POST['wowarmory_modify_content'];
@@ -431,22 +427,11 @@ if (!class_exists("WoWArmoryPlugin")) {
                 <?php wp_nonce_field('update-options'); ?>
                 <table class="form-table">
                     <tr valign="top">
-                        <th scope="row"><?php _e("Armory:",'wow_armory_plugin'); ?></th>
+                        <th scope="row"><?php _e("Region:",'wow_armory_plugin'); ?></th>
                         <td>
-                            <select name="wowarmory_url" id="wowarmory_url">
-                                <option <?php if ($wowarmoryOptions['wowarmory_url'] == "http://www.wowarmory.com/") { echo 'selected'; } ?> value="http://www.wowarmory.com/"><?php _e("US armory",'wow_armory_plugin'); ?></option>
-                                <option <?php if ($wowarmoryOptions['wowarmory_url'] == "http://eu.wowarmory.com/") { echo 'selected'; } ?> value="http://eu.wowarmory.com/"><?php _e("EU armory",'wow_armory_plugin'); ?></option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr valign="top">
-                        <th scope="row"><?php _e("Language:",'wow_armory_plugin'); ?></th>
-                        <td>
-                            <select name="wowarmory_locale" id="wowarmory_locale">
-                                <option <?php if ($wowarmoryOptions['wowarmory_locale'] == "de") { echo 'selected'; } ?> value="de"><?php _e("German",'wow_armory_plugin'); ?></option>
-                                <option <?php if ($wowarmoryOptions['wowarmory_locale'] == "en") { echo 'selected'; } ?> value="en"><?php _e("English",'wow_armory_plugin'); ?></option>
-                                <option <?php if ($wowarmoryOptions['wowarmory_locale'] == "es") { echo 'selected'; } ?> value="es"><?php _e("Spanish",'wow_armory_plugin'); ?></option>
-                                <option <?php if ($wowarmoryOptions['wowarmory_locale'] == "fr") { echo 'selected'; } ?> value="fr"><?php _e("French",'wow_armory_plugin'); ?></option>
+                            <select name="wowarmory_area" id="wowarmory_area">
+                                <option <?php if ($wowarmoryOptions['wowarmory_area'] == "us") { echo 'selected'; } ?> value="us"><?php _e("US armory",'wow_armory_plugin'); ?></option>
+                                <option <?php if ($wowarmoryOptions['wowarmory_area'] == "eu") { echo 'selected'; } ?> value="us"><?php _e("EU armory",'wow_armory_plugin'); ?></option>
                             </select>
                         </td>
                     </tr>
@@ -518,7 +503,9 @@ if (!class_exists("WoWArmoryPlugin")) {
         
             $wowarmoryOptions = $this->getAdminOptions();
 
-            $armoryFetch = new WordPressArmoryCache ($armory = $wowarmoryOptions['wowarmory_url']);
+            $armoryFetch = new WordPressArmoryCache();
+            
+            $armoryFetch->setArea($wowarmoryOptions['wowarmory_area;'])
 
             $itemRarity = array (
                             0 => "#5b5b5b",

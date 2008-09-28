@@ -1,8 +1,16 @@
-== 1.0 - May x, 2008 ==
+1.0.0 Beta  - Sep 28, 2008
+Second release. Upgraded to use phpArmory 0.3.1.
+
+== Features Changed ==
+* WordPress options page:
+  * easier configuration, you now only select the region instead of locale
+    and region.
+
+1.0.0 Alpha - May 28, 2008
 First release! This is still pending a lot of work, but it’s ready for some
 testing.
 
-=== Features Added ===
+== Features Added ==
 * WordPress options page:
   * enable / disable item link parsing for comments/pages/posts,
   * enable / disable caching,
