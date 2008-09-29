@@ -1,0 +1,16 @@
+--- !ditz.rubyforge.org,2008-03-06/project 
+name: wow-armory
+version: "0.5"
+components: 
+- !ditz.rubyforge.org,2008-03-06/component 
+  name: wow-armory
+releases: 
+- !ditz.rubyforge.org,2008-03-06/release 
+  name: wow-armory 1.0.0
+  status: :unreleased
+  release_time: 
+  log_events: 
+  - - 2008-09-29 10:38:11.530099 Z
+    - Daniel S. Reichenbach <shiendra@marenkay.com>
+    - created
+    - ""

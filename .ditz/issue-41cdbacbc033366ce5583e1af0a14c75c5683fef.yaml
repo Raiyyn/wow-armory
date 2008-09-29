@@ -1,0 +1,20 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Update to phpArmory 0.4.0
+desc: |-
+  Update the WoWArmoryCache class to support all features offered by
+  phpArmory 0.4.0.
+type: :task
+component: wow-armory
+release: wow-armory 1.0.0
+reporter: Daniel S. Reichenbach <shiendra@marenkay.com>
+status: :unstarted
+disposition: 
+creation_time: 2008-09-29 10:39:51.294342 Z
+references: []
+
+id: 41cdbacbc033366ce5583e1af0a14c75c5683fef
+log_events: 
+- - 2008-09-29 10:39:54.163755 Z
+  - Daniel S. Reichenbach <shiendra@marenkay.com>
+  - created
+  - ""
