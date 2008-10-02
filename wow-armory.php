@@ -436,7 +436,7 @@ if (!class_exists("WoWArmoryPlugin")) {
                         <td>
                             <select name="wowarmory_area" id="wowarmory_area">
                                 <option <?php if ($wowarmoryOptions['wowarmory_area'] == "us") { echo 'selected'; } ?> value="us"><?php _e("US armory",'wow_armory_plugin'); ?></option>
-                                <option <?php if ($wowarmoryOptions['wowarmory_area'] == "eu") { echo 'selected'; } ?> value="us"><?php _e("EU armory",'wow_armory_plugin'); ?></option>
+                                <option <?php if ($wowarmoryOptions['wowarmory_area'] == "eu") { echo 'selected'; } ?> value="eu"><?php _e("EU armory",'wow_armory_plugin'); ?></option>
                             </select>
                         </td>
                     </tr>
