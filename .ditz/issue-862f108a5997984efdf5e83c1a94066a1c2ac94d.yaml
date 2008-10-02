@@ -1,0 +1,28 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Use WordPress 2.5 shortcode API
+desc: |-
+  With the release of WordPress 2.5, an API was introduced to allow
+  plugins creating their own macro codes to add data to post content.
+  See http://codex.wordpress.org/Shortcode_API for details.
+  
+  I would propose to extend the WoW armory plugin to support the following
+  macro codes:
+  
+  [armoryitem]$insert item name here[/armoryitem]
+  [armoryteam]$teamname $realmname[/armoryteam]
+  [armorychar]$charactername $realmname[/armorychar]
+type: :feature
+component: wow-armory
+release: wow-armory 1.0.0
+reporter: Daniel S. Reichenbach <shiendra@marenkay.com>
+status: :unstarted
+disposition: 
+creation_time: 2008-10-02 11:20:14.438572 Z
+references: []
+
+id: 862f108a5997984efdf5e83c1a94066a1c2ac94d
+log_events: 
+- - 2008-10-02 11:20:16.844376 Z
+  - Daniel S. Reichenbach <shiendra@marenkay.com>
+  - created
+  - ""

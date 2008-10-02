@@ -4,7 +4,7 @@ desc: Updated README, and class documentation.
 type: :task
 component: wow-armory
 release: wow-armory 1.0.0
-reporter: Daniel S. Reichenbach <shiendra@marenkay.com>
+reporter: Daniel S. Reichenbach <daniel.s.reichenbach@mac.com>
 status: :unstarted
 disposition: 
 creation_time: 2008-09-29 10:38:53.853285 Z
@@ -13,6 +13,6 @@ references: []
 id: 2a08f7d0b963d8235714a5547caf728b762fbfe3
 log_events: 
 - - 2008-09-29 10:38:57.025912 Z
-  - Daniel S. Reichenbach <shiendra@marenkay.com>
+  - Daniel S. Reichenbach <daniel.s.reichenbach@mac.com>
   - created
   - ""

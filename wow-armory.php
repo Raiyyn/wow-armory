@@ -27,9 +27,9 @@ Author URI: http://www.marenkay.com/
 load_plugin_textdomain('wow_armory_plugin',PLUGINDIR . '/' . dirname(plugin_basename (__FILE__)) . '/lang');
 
 /**
- * Include the phpArmory class to retrieve the XML from the Armory
+ * Require the phpArmory class to retrieve the XML from the Armory
  */
-include_once(dirname(__FILE__) . '/phparmory/phpArmory.class.php');
+require_once(dirname(__FILE__) . '/phparmory/phpArmory.class.php');
 
 
 if (!class_exists("WordPressArmoryCache")) {
