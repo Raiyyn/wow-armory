@@ -1,3 +1,4 @@
 [submodule "phparmory"]
-	path = phparmory
-	url = git://github.com/marenkay/phparmory.git
+  path = phparmory
+  url = git://github.com/marenkay/phparmory.git
+ 

@@ -7,7 +7,7 @@ Version: 1.0
 Author: Daniel S. Reichenbach
 Author URI: http://www.marenkay.com/
 */
-/*  Copyright 2008  Daniel S. Reichenbach  (email : shiendra@marenkay.com)
+/*  Copyright 2008  Daniel S. Reichenbach  (email : daniel.s.reichenbach@mac.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ load_plugin_textdomain('wow_armory_plugin',PLUGINDIR . '/' . dirname(plugin_base
 /**
  * Require the phpArmory class to retrieve the XML from the Armory
  */
-require_once(dirname(__FILE__) . '/phparmory/phpArmory.class.php');
+require_once(dirname(__FILE__) . '/phparmory/phpArmory.class.php4');
 
 
 if (!class_exists("WordPressArmoryCache")) {
@@ -336,7 +336,7 @@ if (!class_exists("WoWArmoryPlugin")) {
          * Add the scripts and styles used for WoW Armory to the WordPress
          * header.
          *
-         * @author Daniel S. Reichenbach <shiendra@marenkay.com>
+         * @author Daniel S. Reichenbach <daniel.s.reichenbach@mac.com>
          */
         function addHeaderCode() {
 
@@ -352,7 +352,7 @@ if (!class_exists("WoWArmoryPlugin")) {
          *
          * Returns an array of admin options.
          *
-         * @author Daniel S. Reichenbach <shiendra@marenkay.com>
+         * @author Daniel S. Reichenbach <daniel.s.reichenbach@mac.com>
          */
         function getAdminOptions() {
             $wowarmoryAdminOptions = array(
@@ -377,7 +377,7 @@ if (!class_exists("WoWArmoryPlugin")) {
          *
          * Plugin initialization.
          *
-         * @author Daniel S. Reichenbach <shiendra@marenkay.com>
+         * @author Daniel S. Reichenbach <daniel.s.reichenbach@mac.com>
          */
         function init() {
             $this->getAdminOptions();
@@ -388,7 +388,7 @@ if (!class_exists("WoWArmoryPlugin")) {
          *
          * Prints out the admin page
          *
-         * @author Daniel S. Reichenbach <shiendra@marenkay.com>
+         * @author Daniel S. Reichenbach <daniel.s.reichenbach@mac.com>
          */
         function printAdminPage() {
             $wowarmoryOptions = $this->getAdminOptions();
@@ -471,7 +471,7 @@ if (!class_exists("WoWArmoryPlugin")) {
          * doParse().
          *
          * @param string    $content    WordPress page/post conent
-         * @author Daniel S. Reichenbach <shiendra@marenkay.com>
+         * @author Daniel S. Reichenbach <daniel.s.reichenbach@mac.com>
          */
         function modifyContent($content = '') {
         
@@ -487,7 +487,7 @@ if (!class_exists("WoWArmoryPlugin")) {
          * doParse().
          *
          * @param string    $content    WordPress page/post content
-         * @author Daniel S. Reichenbach <shiendra@marenkay.com>
+         * @author Daniel S. Reichenbach <daniel.s.reichenbach@mac.com>
          */
         function modifyComment($content = '') {
         
@@ -502,7 +502,7 @@ if (!class_exists("WoWArmoryPlugin")) {
          * links pointing to the armory.
          *
          * @param string    $content    WordPress page/post content
-         * @author Daniel S. Reichenbach <shiendra@marenkay.com>
+         * @author Daniel S. Reichenbach <daniel.s.reichenbach@mac.com>
          */
         function doParse($content = '') {
         
@@ -537,14 +537,14 @@ if (!class_exists("WoWArmoryPlugin")) {
                 if ($item) { // armory supplied a valid item xml object
                     $itemQuality = $item['itemtooltips']['itemtooltip']['overallqualityid'];
                     
-                    $itemHtml = '<a style="font-weight: bold; color: '.$itemRarity[$itemQuality].';" href="'.$wowarmoryOptions['wowarmory_url'].'item-info.xml?i='.$item['itemtooltips']['itemtooltip']['id'].'">';
+                    $itemHtml = '<a style="font-weight: bold; color: '.$itemRarity[$itemQuality].';" href="'.$armoryFetch->armory.'item-info.xml?i='.$item['itemtooltips']['itemtooltip']['id'].'">';
                     $itemHtml = $itemHtml . '<span onmouseover="return overlib(\'<table cellpadding=\\\'0\\\' border=\\\'0\\\' class=\\\'tooltip_new\\\'><tr><td><center><img src=\\\''.get_bloginfo('wpurl').'/'.PLUGINDIR.'/'.dirname(plugin_basename (__FILE__)).'/images/ajax-loader.gif\\\' border=\\\'0\\\' align=\\\'Loading...\\\' /><br />Searching...please wait.</center></td></tr></table>\',VAUTO,HAUTO,FULLHTML);" onmouseout="return nd();">';
                     $itemHtml = $itemHtml . $item['itemtooltips']['itemtooltip']['name'];
                     $itemHtml = $itemHtml . '</span>';
                     $itemHtml = $itemHtml . '</a>';
 
                 } else { // armory did not supply a valid xml object
-                    $itemHtml = '<a style="font-weight: bold; color: '.$itemRarity[0].';" href="'.$wowarmoryOptions['wowarmory_url'].'search.xml?searchQuery='.$itemName.'&searchType=items">';
+                    $itemHtml = '<a style="font-weight: bold; color: '.$itemRarity[0].';" href="'.$armoryFetch->armory.'search.xml?searchQuery='.$itemName.'&searchType=items">';
                     $itemHtml = $itemHtml . '<span onmouseover="return overlib(\'<table cellpadding=\\\'0\\\' border=\\\'0\\\' class=\\\'tooltip_new\\\'><tr><td><center><img src=\\\''.get_bloginfo('wpurl').'/'.PLUGINDIR.'/'.dirname(plugin_basename (__FILE__)).'/images/ajax-loader.gif\\\' border=\\\'0\\\' align=\\\'Loading...\\\' /><br />Item not found. Click to search the armory.</center></td></tr></table>\',VAUTO,HAUTO,FULLHTML);" onmouseout="return nd();">';
                     $itemHtml = $itemHtml . $itemName;
                     $itemHtml = $itemHtml . '</span>';
@@ -567,7 +567,7 @@ if (!class_exists("WoWArmoryPlugin")) {
          *
          * @param       array           $item       WordPress page/post conent
          * @return      string          $itemHtml   Generated HTML tooltip
-         * @author Daniel S. Reichenbach <shiendra@marenkay.com>
+         * @author Daniel S. Reichenbach <daniel.s.reichenbach@mac.com>
          */
         function itemTooltip($item = array()) {
         
