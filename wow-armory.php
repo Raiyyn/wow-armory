@@ -58,21 +58,14 @@ if (!class_exists("WordPressArmoryCache")) {
          */
         var $cacheID = 0;
 
-        /**#@-*/
         /**
-        * The Constructor
-        *
-        * This function is called when the object is created. It has
-        * three optional parameters. The first sets the base url of
-        * the Armory website that will be used to fetch the serialized
-        * XML data. The second sets whether data will be stored in
-        * flat files or a mysql database. The third indicates how
-        * long a cached XML query should be kept before updating.
-        *
-        * @param string     $armoryArea     URL of the Armory website
-        * @param integer    $retries        Time (in seconds) between cache updates
-        */
-        function __construct($areaName = NULL, $downloadRetries = NULL) {
+         * WordPressArmoryCache class constructor.
+         * @access      public
+         * @param       string      $areaName
+         * @param       int         $downloadRetries
+         * @return      mixed       $result                 Returns TRUE if the class could be instantiated properly. Returns FALSE and an error string, if the class could not be instantiated.
+         */
+        public function __construct($areaName = NULL, $downloadRetries = NULL) {
 
             global $wpdb;
 
@@ -109,18 +102,17 @@ if (!class_exists("WordPressArmoryCache")) {
         * @return string[]                  An associative array
         * @param string     $character      The name of the character
         * @param string     $realm          The character's realm
-        * @author Claire Matthews <poeticdragon@stormblaze.net>
         */
-        function getCharacterData($characterName = NULL, $realmName = NULL) {
+        public function getCharacterData($characterName = NULL, $realmName = NULL) {
 
-            if(($character==NULL)&&($this->character)) $character = $this->character;
-            if(($realm==NULL)&&($this->realm)) $realm = $this->realm;
+            if(($characterName==NULL)&&($this->characterName)) $characterName = $this->characterName;
+            if(($realmName==NULL)&&($this->realmName)) $realmName = $this->realmName;
 
-            $this->cacheID = "c".md5($character.$realm);
+            $this->cacheID = "c".md5($characterName.$realmName);
             $cached = $this->cacheFetch($this->cacheID);
 
             if (!is_array($cached)) {
-                $cached = parent::getCharacterData($character, $realm);
+                $cached = parent::getCharacterData($characterName, $realmName);
 
                 if ( $this->cacheID ) {
                     $scached = serialize($cached);
@@ -144,18 +136,17 @@ if (!class_exists("WordPressArmoryCache")) {
         * @return string[]                  An associative array
         * @param string     $guild          The name of the guild
         * @param string     $realm          The guild's realm
-        * @author Claire Matthews <poeticdragon@stormblaze.net>
         */
-        function getGuildData($guildName = NULL, $realmName = NULL) {
+        public function getGuildData($guildName = NULL, $realmName = NULL) {
 
-            if(($guild==NULL)&&($this->guild)) $guild = $this->guild;
-            if(($realm==NULL)&&($this->realm)) $realm = $this->realm;
+            if(($guildName==NULL)&&($this->guildName)) $guildName = $this->guildName;
+            if(($realmName==NULL)&&($this->realmName)) $realm = $this->realmName;
 
-            $this->cacheID = "g".md5($guild.$realm);
+            $this->cacheID = "g".md5($guildName.$realmName);
             $cached = $this->cacheFetch($this->cacheID);
 
             if (!is_array($cached)) {
-                $cached = parent::getGuildData($guild, $realm);
+                $cached = parent::getGuildData($guildName, $realmName);
 
                 if ( $this->cacheID ) {
                     $scached = serialize($cached);
@@ -178,9 +169,8 @@ if (!class_exists("WordPressArmoryCache")) {
         *
         * @return string[]                  An associative array
         * @param integer    $itemID         The ID of the item
-        * @author Claire Matthews <poeticdragon@stormblaze.net>
         */
-        function getItemData($itemID) {
+        public function getItemData($itemID) {
 
             $this->cacheID = "i".md5($itemID);
             $cached = $this->cacheFetch($this->cacheID);
@@ -210,19 +200,18 @@ if (!class_exists("WordPressArmoryCache")) {
         * @return string[]                  An associative array
         * @param string     $item           The name of the item
         * @param string[]   $filter         Associative array of search parameters
-        * @author Claire Matthews <poeticdragon@stormblaze.net>
         */
-        function getItemDataByName($itemName, $filter = NULL) {
+        public function getItemDataByName($itemName, $filter = NULL) {
 
             if ($filter&&is_array($filter)) {
-                $this->cacheID = "s".md5($item.implode('', $filter));
+                $this->cacheID = "s".md5($itemName.implode('', $filter));
             } else {
-                $this->cacheID = "s".md5($item);
+                $this->cacheID = "s".md5($itemName);
             }
             $cached = $this->cacheFetch($this->cacheID);
 
             if (!is_array($cached)) {
-                $cached = parent::getItemDataByName($item, $filter);
+                $cached = parent::getItemDataByName($itemName, $filter);
 
                 if ( $this->cacheID ) {
                     $scached = serialize($cached);
@@ -238,33 +227,6 @@ if (!class_exists("WordPressArmoryCache")) {
         }
 
         /**
-        * xmlFetch
-        *
-        * This fetches the XML data as normal by calling
-        * the parent function. If a cache id is set, it will
-        * save the XML data to the cache and then unset the id.
-        *
-        * @param string     $url            URL of the page to fetch data from
-        * @param string     $userAgent      The user agent making the GET request
-        * @param integer    $timeout        The connection timeout in seconds
-        * @author Claire Matthews <poeticdragon@stormblaze.net>
-        */
-        function getXmlData($url, $userAgent = NULL, $timeOut = NULL) {
-
-            $xml = parent::getXmlData($url, $userAgent, $timeOut);
-
-            /*  disabled.
-             * if ( $this->cacheID ) {
-             *     $this->cacheSave($this->cacheID, $xml);
-             *     unset($this->cacheID);
-             * }
-             */
-
-            return $xml['XmlData'];
-
-        }
-
-        /**
         * cacheFetch
         *
         * This function returns the unserialized XML data
@@ -274,9 +236,8 @@ if (!class_exists("WordPressArmoryCache")) {
         *
         * @return string[]                  An associative array
         * @param string     $cacheID        The ID of the cached thing
-        * @author Claire Matthews <poeticdragon@stormblaze.net>
         */
-        function cacheFetch($cacheID) {
+        public function cacheFetch($cacheID) {
 
             global $wpdb;
 
@@ -291,7 +252,7 @@ if (!class_exists("WordPressArmoryCache")) {
                     $results = $wpdb->query( $query );
                 } else {
                     // Return the cached XML as an array
-                    return $this->xmlToArray(mysql_result($result, 0, 'cache_xml'));
+                    return $this->convertXmlToArray(mysql_result($result, 0, 'cache_xml'));
                 }
             }
         }
@@ -304,9 +265,8 @@ if (!class_exists("WordPressArmoryCache")) {
         *
         * @param string     $cacheID        The ID of the cached thing
         * @param string     $xml            The XML info to be saved
-        * @author Claire Matthews <poeticdragon@stormblaze.net>
         */
-        function cacheSave($cacheID, $xml) {
+        public function cacheSave($cacheID, $xml) {
 
             global $wpdb;
 
