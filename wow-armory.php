@@ -29,12 +29,12 @@ load_plugin_textdomain('wow_armory_plugin',PLUGINDIR . '/' . dirname(plugin_base
 /**
  * Require the phpArmory class to retrieve the XML from the Armory
  */
-require_once(dirname(__FILE__) . '/phparmory/phpArmory.class.php4');
+require_once(dirname(__FILE__) . '/phparmory/phpArmory.class.php');
 
 
 if (!class_exists("WordPressArmoryCache")) {
-    class WordPressArmoryCache extends phpArmory {
-        
+    class WordPressArmoryCache extends phpArmory5 {
+
         /**
          * The mysql cache table
          *
@@ -57,7 +57,7 @@ if (!class_exists("WordPressArmoryCache")) {
          * @var integer
          */
         var $cacheID = 0;
-        
+
         /**#@-*/
         /**
         * The Constructor
@@ -72,10 +72,10 @@ if (!class_exists("WordPressArmoryCache")) {
         * @param string     $armoryArea     URL of the Armory website
         * @param integer    $retries        Time (in seconds) between cache updates
         */
-        function WordPressArmoryCache($armoryArea = NULL, $retries = NULL) {
+        function __construct($areaName = NULL, $downloadRetries = NULL) {
 
             global $wpdb;
-                
+
             $table_name = $wpdb->prefix . $this->dataTable;
 
             if($wpdb->get_var("show tables like '$table_name'") != $table_name) {
@@ -90,18 +90,18 @@ if (!class_exists("WordPressArmoryCache")) {
                 dbDelta($sql);
 
             }
-            
-    		if ($armoryArea){
-    			$this->phpArmory($armoryArea);
-    		}
-    		if ($retries){
-    			$this->phpArmory($retries);
-    		}
-            
+
+            if ($areaName){
+                $this->phpArmory5->setArea($areaName);
+            }
+            if ($downloadRetries){
+                $this->phpArmory5($downloadRetries);
+            }
+
         }
 
         /**
-        * characterFetch
+        * getCharacterData
         *
         * Attempts to fetch a cached version of the requested
         * character. Otherwise, it calls the parent function.
@@ -111,16 +111,16 @@ if (!class_exists("WordPressArmoryCache")) {
         * @param string     $realm          The character's realm
         * @author Claire Matthews <poeticdragon@stormblaze.net>
         */
-        function characterFetch($character = NULL, $realm = NULL) {
-            
+        function getCharacterData($characterName = NULL, $realmName = NULL) {
+
             if(($character==NULL)&&($this->character)) $character = $this->character;
             if(($realm==NULL)&&($this->realm)) $realm = $this->realm;
-            
+
             $this->cacheID = "c".md5($character.$realm);
             $cached = $this->cacheFetch($this->cacheID);
 
             if (!is_array($cached)) {
-                $cached = parent::characterFetch($character, $realm);
+                $cached = parent::getCharacterData($character, $realm);
 
                 if ( $this->cacheID ) {
                     $scached = serialize($cached);
@@ -134,10 +134,10 @@ if (!class_exists("WordPressArmoryCache")) {
             }
 
         }
-        
+
         /**
-        * guildFetch
-        * 
+        * getGuildData
+        *
         * Attempts to fetch a cached version of the requested
         * guild. Otherwise, it calls the parent function.
         *
@@ -146,16 +146,16 @@ if (!class_exists("WordPressArmoryCache")) {
         * @param string     $realm          The guild's realm
         * @author Claire Matthews <poeticdragon@stormblaze.net>
         */
-        function guildFetch($guild = NULL, $realm = NULL) {
-        
+        function getGuildData($guildName = NULL, $realmName = NULL) {
+
             if(($guild==NULL)&&($this->guild)) $guild = $this->guild;
             if(($realm==NULL)&&($this->realm)) $realm = $this->realm;
-        
+
             $this->cacheID = "g".md5($guild.$realm);
             $cached = $this->cacheFetch($this->cacheID);
 
             if (!is_array($cached)) {
-                $cached = parent::guildFetch($guild, $realm);
+                $cached = parent::getGuildData($guild, $realm);
 
                 if ( $this->cacheID ) {
                     $scached = serialize($cached);
@@ -167,12 +167,12 @@ if (!class_exists("WordPressArmoryCache")) {
             } else {
                 return $cached;
             }
-        
+
         }
 
         /**
-        * itemFetch
-        * 
+        * getItemData
+        *
         * Attempts to fetch a cached version of the requested
         * item. Otherwise, it calls the parent function.
         *
@@ -180,13 +180,13 @@ if (!class_exists("WordPressArmoryCache")) {
         * @param integer    $itemID         The ID of the item
         * @author Claire Matthews <poeticdragon@stormblaze.net>
         */
-        function itemFetch($itemID) {
-        
+        function getItemData($itemID) {
+
             $this->cacheID = "i".md5($itemID);
             $cached = $this->cacheFetch($this->cacheID);
 
             if (!is_array($cached)) {
-                $cached = parent::itemFetch($itemID);
+                $cached = parent::getItemData($itemID);
 
                 if ( $this->cacheID ) {
                     $scached = serialize($cached);
@@ -198,12 +198,12 @@ if (!class_exists("WordPressArmoryCache")) {
             }else{
                 return $cached;
             }
-        
+
         }
 
         /**
-        * itemNameFetch
-        * 
+        * getItemDataByName
+        *
         * Attempts to fetch a cached version of the requested
         * item search. Otherwise, it calls the parent function.
         *
@@ -212,8 +212,8 @@ if (!class_exists("WordPressArmoryCache")) {
         * @param string[]   $filter         Associative array of search parameters
         * @author Claire Matthews <poeticdragon@stormblaze.net>
         */
-        function itemNameFetch($item, $filter = NULL) {
-        
+        function getItemDataByName($itemName, $filter = NULL) {
+
             if ($filter&&is_array($filter)) {
                 $this->cacheID = "s".md5($item.implode('', $filter));
             } else {
@@ -222,7 +222,7 @@ if (!class_exists("WordPressArmoryCache")) {
             $cached = $this->cacheFetch($this->cacheID);
 
             if (!is_array($cached)) {
-                $cached = parent::itemNameFetch($item, $filter);
+                $cached = parent::getItemDataByName($item, $filter);
 
                 if ( $this->cacheID ) {
                     $scached = serialize($cached);
@@ -234,12 +234,12 @@ if (!class_exists("WordPressArmoryCache")) {
             }else{
                 return $cached;
             }
-        
+
         }
 
         /**
         * xmlFetch
-        * 
+        *
         * This fetches the XML data as normal by calling
         * the parent function. If a cache id is set, it will
         * save the XML data to the cache and then unset the id.
@@ -249,9 +249,9 @@ if (!class_exists("WordPressArmoryCache")) {
         * @param integer    $timeout        The connection timeout in seconds
         * @author Claire Matthews <poeticdragon@stormblaze.net>
         */
-        function xmlFetch($url, $userAgent = NULL, $timeout = NULL) {
+        function getXmlData($url, $userAgent = NULL, $timeOut = NULL) {
 
-            $xml = parent::xmlFetch($url, $userAgent, $timeout);
+            $xml = parent::getXmlData($url, $userAgent, $timeOut);
 
             /*  disabled.
              * if ( $this->cacheID ) {
@@ -260,13 +260,13 @@ if (!class_exists("WordPressArmoryCache")) {
              * }
              */
 
-            return $xml;
+            return $xml['XmlData'];
 
         }
 
         /**
         * cacheFetch
-        * 
+        *
         * This function returns the unserialized XML data
         * for the requested cache id from the cache. It
         * will also remove old cached files/rows that have
@@ -279,7 +279,7 @@ if (!class_exists("WordPressArmoryCache")) {
         function cacheFetch($cacheID) {
 
             global $wpdb;
-                
+
             $table_name = $wpdb->prefix . $this->dataTable;
 
             $query = "SELECT cache_xml, UNIX_TIMESTAMP(cache_time) AS cache_time FROM `".$table_name."` WHERE cache_id = '".$wpdb->escape($cacheID)."'";
@@ -298,7 +298,7 @@ if (!class_exists("WordPressArmoryCache")) {
 
         /**
         * cacheSave
-        * 
+        *
         * This function saves the given XML data to the
         * cache by its cache id.
         *
@@ -309,16 +309,16 @@ if (!class_exists("WordPressArmoryCache")) {
         function cacheSave($cacheID, $xml) {
 
             global $wpdb;
-                
+
             $table_name = $wpdb->prefix . $this->dataTable;
 
             if (get_magic_quotes_gpc()) $xml = stripslashes($xml);
 
             $query = "REPLACE INTO `".$table_name."` (cache_id, cache_xml) VALUES('".$wpdb->escape($cacheID)."','".$wpdb->escape(xml)."')";
             $results = $wpdb->query( $query );
-            
+
         }
-        
+
     }
 }
 
@@ -410,7 +410,7 @@ if (!class_exists("WoWArmoryPlugin")) {
         <div id="message" class="updated fade"><p><?php _e('Options saved.', 'wow_armory_plugin') ?></p></div>
 <?php
                 endif;
-            
+
             } ?>
         <div class="wrap">
             <h2 id="write-post"><?php _e("WoW Armory Options&hellip;",'wow_armory_plugin');?></h2>
@@ -445,16 +445,16 @@ if (!class_exists("WoWArmoryPlugin")) {
                         <td>
                             <p><label for="wowarmory_modify_content_yes"><input type="radio" id="wowarmory_modify_content_yes" name="wowarmory_modify_content" value="true" <?php if ($wowarmoryOptions['wowarmory_modify_content'] == "true") { echo 'checked="checked"'; } ?> /> <?php _e("Yes",'wow_armory_plugin'); ?></label>&nbsp;&nbsp;&nbsp;&nbsp;<label for="wowarmory_modify_content_no"><input type="radio" id="wowarmory_modify_content_no" name="wowarmory_modify_content" value="false" <?php if ($wowarmoryOptions['wowarmory_modify_content'] == "false") { echo 'checked="checked"'; } ?>/> <?php _e("No",'wow_armory_plugin'); ?></label></p>
                             <p><?php _e('Selecting <em>No</em> will disable the display of character and item links for posts and pages.','wow_armory_plugin'); ?></p>
-                        </td> 
+                        </td>
                     </tr>
                     <tr valign="top">
                         <th scope="row"><?php _e("Comments:",'wow_armory_plugin'); ?></th>
                         <td>
                             <p><label for="wowarmory_modify_comment_yes"><input type="radio" id="wowarmory_modify_comment_yes" name="wowarmory_modify_comment" value="true" <?php if ($wowarmoryOptions['wowarmory_modify_comment'] == "true") { echo 'checked="checked"'; } ?> /> <?php _e("Yes",'wow_armory_plugin'); ?></label>&nbsp;&nbsp;&nbsp;&nbsp;<label for="wowarmory_modify_comment_no"><input type="radio" id="wowarmory_modify_comment_no" name="wowarmory_modify_comment" value="false" <?php if ($wowarmoryOptions['wowarmory_modify_comment'] == "false") { echo 'checked="checked"'; } ?>/> <?php _e("No",'wow_armory_plugin'); ?></label></p>
                             <p><?php _e('Selecting <em>No</em> will disable the display of character and item links for comments.','wow_armory_plugin'); ?></p>
-                        </td> 
+                        </td>
                     </tr>
-                </table>      
+                </table>
                 <div class="submit">
                     <input type="submit" name="update_WoWArmoryPluginSettings" value="<?php _e('Update Options »') ?>" />
                 </div>
@@ -474,7 +474,7 @@ if (!class_exists("WoWArmoryPlugin")) {
          * @author Daniel S. Reichenbach <daniel.s.reichenbach@mac.com>
          */
         function modifyContent($content = '') {
-        
+
             $content = $this->doParse($content);
             return $content;
         }
@@ -490,7 +490,7 @@ if (!class_exists("WoWArmoryPlugin")) {
          * @author Daniel S. Reichenbach <daniel.s.reichenbach@mac.com>
          */
         function modifyComment($content = '') {
-        
+
             $content = $this->doParse($content);
             return $content;
         }
@@ -505,11 +505,11 @@ if (!class_exists("WoWArmoryPlugin")) {
          * @author Daniel S. Reichenbach <daniel.s.reichenbach@mac.com>
          */
         function doParse($content = '') {
-        
+
             $wowarmoryOptions = $this->getAdminOptions();
 
             $armoryFetch = new WordPressArmoryCache();
-            
+
             $armoryFetch->setArea($wowarmoryOptions['wowarmory_area;']);
 
             $itemRarity = array (
@@ -522,7 +522,7 @@ if (!class_exists("WoWArmoryPlugin")) {
                             6 => "#9c884d"
                             );
             $content = utf8_decode($content);
-            
+
             // parse the content variable for all [item]...[/item] occurrences
             while (preg_match('#\[(item)(=[0-5])?\](.+?)\[/item\]#s', $content, $match)) {
 
@@ -532,26 +532,28 @@ if (!class_exists("WoWArmoryPlugin")) {
 
                 $itemName = html_entity_decode($itemName, ENT_QUOTES);
 
-                $item = $armoryFetch->itemNameFetch($itemName);
-                
+                $armoryAreaData = $armoryFetch->getArea();
+
+                $item = $armoryFetch->getItemDataByName($itemName);
+
                 if ($item) { // armory supplied a valid item xml object
                     $itemQuality = $item['itemtooltips']['itemtooltip']['overallqualityid'];
-                    
-                    $itemHtml = '<a style="font-weight: bold; color: '.$itemRarity[$itemQuality].';" href="'.$armoryFetch->armory.'item-info.xml?i='.$item['itemtooltips']['itemtooltip']['id'].'">';
+
+                    $itemHtml = '<a style="font-weight: bold; color: '.$itemRarity[$itemQuality].';" href="'.$armoryAreaData[1].'item-info.xml?i='.$item['itemtooltips']['itemtooltip']['id'].'">';
                     $itemHtml = $itemHtml . '<span onmouseover="return overlib(\'<table cellpadding=\\\'0\\\' border=\\\'0\\\' class=\\\'tooltip_new\\\'><tr><td><center><img src=\\\''.get_bloginfo('wpurl').'/'.PLUGINDIR.'/'.dirname(plugin_basename (__FILE__)).'/images/ajax-loader.gif\\\' border=\\\'0\\\' align=\\\'Loading...\\\' /><br />Searching...please wait.</center></td></tr></table>\',VAUTO,HAUTO,FULLHTML);" onmouseout="return nd();">';
                     $itemHtml = $itemHtml . $item['itemtooltips']['itemtooltip']['name'];
                     $itemHtml = $itemHtml . '</span>';
                     $itemHtml = $itemHtml . '</a>';
 
                 } else { // armory did not supply a valid xml object
-                    $itemHtml = '<a style="font-weight: bold; color: '.$itemRarity[0].';" href="'.$armoryFetch->armory.'search.xml?searchQuery='.$itemName.'&searchType=items">';
+                    $itemHtml = '<a style="font-weight: bold; color: '.$itemRarity[0].';" href="'.$armoryAreaData[1].'search.xml?searchQuery='.$itemName.'&searchType=items">';
                     $itemHtml = $itemHtml . '<span onmouseover="return overlib(\'<table cellpadding=\\\'0\\\' border=\\\'0\\\' class=\\\'tooltip_new\\\'><tr><td><center><img src=\\\''.get_bloginfo('wpurl').'/'.PLUGINDIR.'/'.dirname(plugin_basename (__FILE__)).'/images/ajax-loader.gif\\\' border=\\\'0\\\' align=\\\'Loading...\\\' /><br />Item not found. Click to search the armory.</center></td></tr></table>\',VAUTO,HAUTO,FULLHTML);" onmouseout="return nd();">';
                     $itemHtml = $itemHtml . $itemName;
                     $itemHtml = $itemHtml . '</span>';
                     $itemHtml = $itemHtml . '</a>';
 
                 }
-                
+
                 // replace the itemname with an armory link
                 $content = str_replace($match[0], $itemHtml, $content);
 
@@ -570,7 +572,7 @@ if (!class_exists("WoWArmoryPlugin")) {
          * @author Daniel S. Reichenbach <daniel.s.reichenbach@mac.com>
          */
         function itemTooltip($item = array()) {
-        
+
             return;
         }
 
@@ -584,27 +586,27 @@ if (class_exists("WoWArmoryPlugin")) {
 
 //Initialize the admin panel
 if (!function_exists("WoWArmoryPlugin_ap")) {
-	function WoWArmoryPlugin_ap() {
-		global $wowarmory_plugin;
-		if (!isset($wowarmory_plugin)) {
-			return;
-		}
-		if (function_exists('add_submenu_page')) {
+    function WoWArmoryPlugin_ap() {
+        global $wowarmory_plugin;
+        if (!isset($wowarmory_plugin)) {
+            return;
+        }
+        if (function_exists('add_submenu_page')) {
             add_submenu_page('plugins.php', __('WoW Armory Settings'), __('WoW Armory'), 'manage_options', basename(__FILE__), array(&$wowarmory_plugin, 'printAdminPage'));
-		}
-	}	
+        }
+    }
 }
 
 //Actions and Filters
 if (isset($wowarmory_plugin)) {
-	//Actions
-	add_action('admin_menu', 'WoWArmoryPlugin_ap');
-	add_action('wp_head', array(&$wowarmory_plugin, 'addHeaderCode'), 1);
-	add_action('activate_wow-armory/wow-armory.php',  array(&$wowarmory_plugin, 'init'));
+    //Actions
+    add_action('admin_menu', 'WoWArmoryPlugin_ap');
+    add_action('wp_head', array(&$wowarmory_plugin, 'addHeaderCode'), 1);
+    add_action('activate_wow-armory/wow-armory.php',  array(&$wowarmory_plugin, 'init'));
 
-	//Filters
-	add_filter('the_content', array(&$wowarmory_plugin, 'modifyContent'));
-	add_filter('comment_text',array(&$wowarmory_plugin, 'modifyComment'), 35);
+    //Filters
+    add_filter('the_content', array(&$wowarmory_plugin, 'modifyContent'));
+    add_filter('comment_text',array(&$wowarmory_plugin, 'modifyComment'), 35);
 }
 
 ?>

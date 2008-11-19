@@ -1,0 +1,37 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: PHP5 conversion
+desc: |-
+  Convert phpArmory / phpArmoryCache classes to PHP5
+  With PHP4 reaching its' End of Life point, it is time to convert the class
+  format from the old format (http://www.php.net/manual/en/language.oop.php)
+  to the new format (http://www.php.net/manual/en/language.oop5.php).
+type: :task
+component: phparmory
+release: phpArmory 0.4.0
+reporter: Daniel S. Reichenbach <daniel.s.reichenbach@mac.com>
+status: :closed
+disposition: :fixed
+creation_time: 2008-09-29 10:30:09.541958 Z
+references: []
+
+id: 47a7edc14a9e427035c5cd1a0f71d92b4b43d4bc
+log_events: 
+- - 2008-09-29 10:30:15.291401 Z
+  - Daniel S. Reichenbach <daniel.s.reichenbach@mac.com>
+  - created
+  - ""
+- - 2008-09-29 10:35:13.243293 Z
+  - Daniel S. Reichenbach <daniel.s.reichenbach@mac.com>
+  - assigned to release phpArmory 0.4.0 from unassigned
+  - ""
+- - 2008-10-01 07:36:09.622072 Z
+  - Daniel S. Reichenbach <daniel.s.reichenbach@mac.com>
+  - changed status from unstarted to in_progress
+  - Added class templates for both non-caching and caching class.
+- - 2008-11-19 16:34:51.421505 Z
+  - Daniel S. Reichenbach <shiendra@marenkay.com>
+  - closed with disposition fixed
+  - |-
+    Both the phpArmory5 and the phpArmory5Cache class now make use of the
+    new OOP features offered by PHP5. Using phpArmory thus now requires
+    PHP5.
